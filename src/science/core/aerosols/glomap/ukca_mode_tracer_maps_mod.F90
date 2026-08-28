@@ -78,9 +78,9 @@ INTEGER :: icp                  ! component index
 INTEGER :: imode                ! mode index
 INTEGER :: icode                ! error code
 INTEGER :: i, j                 ! loop counters
-#if defined(NAG_FORTRAN) && (NAG_FORTRAN == 7000000)
+!#if defined(NAG_FORTRAN) && (NAG_FORTRAN == 7000000)
 LOGICAL :: tracer_belongs
-#endif
+!#endif
 CHARACTER(LEN=errormessagelength) :: cmessage   ! error message
 
 INTEGER(KIND=jpim), PARAMETER :: zhook_in  = 0
@@ -112,7 +112,7 @@ END IF
 DO i=1,n_tracers
   ! (Slow) Workaround for NAG Fortran vn7.0 internal compiler error.
   ! Fixed in vn7.1
-#if defined(NAG_FORTRAN) && (NAG_FORTRAN == 7000000)
+!#if defined(NAGFOR) && (NAG_FORTRAN == 7000000)
   tracer_belongs = .FALSE.
   DO j=1,nmodes
     IF ( mode_names(j) == all_tracers_names(i)(1:7) ) THEN
@@ -120,9 +120,9 @@ DO i=1,n_tracers
     END IF
   END DO
   IF ( tracer_belongs ) THEN
-#else
-  IF ( ANY(mode_names(:) == all_tracers_names(i)(1:7)) ) THEN
-#endif
+!#else
+!  IF ( ANY(mode_names(:) == all_tracers_names(i)(1:7)) ) THEN
+!#endif
       ! Tracer belongs to UKCA_MODE aerosol scheme
 
       ! first 7 characters of tracer name are the mode name

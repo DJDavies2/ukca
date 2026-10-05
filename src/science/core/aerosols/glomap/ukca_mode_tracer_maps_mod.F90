@@ -78,7 +78,7 @@ INTEGER :: icp                  ! component index
 INTEGER :: imode                ! mode index
 INTEGER :: icode                ! error code
 INTEGER :: i, j                 ! loop counters
-#if defined(NAG_FORTRAN) && (NAG_FORTRAN == 7000000)
+#ifdef NAGFOR
 LOGICAL :: tracer_belongs
 #endif
 CHARACTER(LEN=errormessagelength) :: cmessage   ! error message
@@ -112,7 +112,7 @@ END IF
 DO i=1,n_tracers
   ! (Slow) Workaround for NAG Fortran vn7.0 internal compiler error.
   ! Fixed in vn7.1
-#if defined(NAG_FORTRAN) && (NAG_FORTRAN == 7000000)
+#ifdef NAGFOR
   tracer_belongs = .FALSE.
   DO j=1,nmodes
     IF ( mode_names(j) == all_tracers_names(i)(1:7) ) THEN
